@@ -1,0 +1,27 @@
+<form [formGroup]="profiles" class="form">
+    <label for="first-name">First Name: </label>
+    <input id="first-name" type="text" formControlName="firstName"><br>
+        <div *ngIf="profiles.get('firstName')!.invalid && profiles.get('firstName')!.touched">
+             <small class="text-danger" *ngIf="profiles.get('firstName')!.errors?.['required']">name is required</small>
+             <small class="text-danger" *ngIf="profiles.get('firstName')!.errors?.['minlength']">name must be in 4 latters</small>
+        </div>
+
+    <button type="submit" *ngIf="ishide"[disabled]="!profiles.valid" class="bg"
+    (click)="createUser()">create account</button>
+    <button type="submit" *ngIf="!ishide" class="bg"
+    (click)="updateUser()">update account</button>
+   
+        <!-- <span *ngIf="showmsg">sucessfully created</span> -->
+            <ol>
+            <li *ngFor = "let task of tasks;let i=index">
+                <span *ngIf="task.status == 'done'" class="stline">{{task.name}}</span>
+                <span *ngIf="task.status != 'done'">{{task.name}}</span>
+                <!-- <button (click)=editform(row) class="ba">edit</button>-->
+                created_at: {{task.created_time | date:'short'}}
+                <button (click)="getid(task)">edit</button>
+                <button (click)="taskremove(task._id)" class="bc">delete</button>
+                <button (click)="markAsDone(task)">done</button>
+            </li>
+            </ol>
+          
+        </form>
